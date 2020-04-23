@@ -41,7 +41,10 @@
             */
         </script>
         <div class="container-two">
-            <canvas id="myChart-two"></canvas>
+            <canvas id="myChart-two"></canvas>            
+        </div>
+        <div class="container-three">
+            <canvas id="myChart-three"></canvas>
         </div>
 
         <script src="js/main.js" charset="utf-8"></script>
