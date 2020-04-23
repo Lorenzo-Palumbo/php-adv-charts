@@ -47,7 +47,16 @@ $(document).ready(function (){
         },
     }); */
 
-
+    $.ajax({
+        url:'server.php',
+        method:'GET',
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (){
+            alert('errore')
+        }
+    });
 
 
 

@@ -40,6 +40,9 @@
             });
             */
         </script>
+        <div class="container-two">
+            <canvas id="myChart-two"></canvas>
+        </div>
 
         <script src="js/main.js" charset="utf-8"></script>
     </body>
