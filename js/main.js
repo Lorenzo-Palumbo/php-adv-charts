@@ -122,7 +122,108 @@ $(document).ready(function (){
         });
     };
 
+    $.ajax({
+        url:'server.php',
+        method:'GET',
+        success:function(data){
+            var vendite = datiVendite(data);
+            graficoLineStep3(vendite.tipo, vendite.dati);
+            var fatturatoAgente = datifatturatoAgenti(data);
+            graficoPieStep3(fatturatoAgente.tipo, fatturatoAgente.vendita, fatturatoAgente.venditori);
+            var ctx = $('#myChart-six');
+            var chart = new Chart(ctx, {
 
+                type: 'line',
 
+                data: {
+                    labels: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
+                    datasets: [
+                        {
+                            label: 'Vendite',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: [1000,1322,1123,2301,3288,988,502,2300,5332,2300,1233,2322]
+                        },
+                        {
+                            label: 'Vendite2',
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: [2000,3322,1123,1301,3288,988,502,5300,2332,2300,4233,2322]
+                        },
+                        {
+                            label: 'Vendite3',
+                            backgroundColor: 'rgb(255, 20, 132, 0.5)',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: [1000,1322,5123,2301,3288,1988,502,300,5332,2300,233,2322]
+                        }
+                    ],
+                },
+            });
+
+        },
+        error:function(){
+            alert('error');
+        }
+    });
+
+    function graficoLineStep3(type, data){
+        var ctx = $('#myChart-four');
+        var chart = new Chart(ctx, {
+
+            type: type,
+
+            data: {
+                labels: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
+                datasets: [{
+                    label: 'Vendite',
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: data
+                }]
+            },
+        });
+    };
+    function datiVendite(data){
+        var fatturato = data.fatturato;
+        var tipo = fatturato.type;
+        var dati = fatturato.data;
+        return{
+            tipo:tipo,
+            dati:dati
+        }
+    };
+    function graficoPieStep3(type, data, sellers){
+        var ctx = $('#myChart-five');
+        var chart = new Chart(ctx, {
+
+            type: type,
+
+            data: {
+                datasets: [{
+                    data: data,
+                    backgroundColor:['#ed5555', '#6ca36c', '#6565b8', '#ae5e5e']
+                }],
+
+                labels: sellers
+            }
+        });
+    };
+    function datifatturatoAgenti(data){
+        var fatturatoAgenti = data.fatturato_by_agent;
+        var tipo = fatturatoAgenti.type;
+        var dati = fatturatoAgenti.data;
+
+        var venditori = [];
+        var vendita = [];
+        for (var key in dati) {
+            venditori.push(key);
+            vendita.push(dati[key]);
+        };
+        return{
+            tipo:tipo,
+            venditori:venditori,
+            vendita:vendita
+        }
+    };
 
 });

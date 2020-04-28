@@ -5,5 +5,9 @@
  ?>
 
  <?php
-    echo ($graphs_database) ;
+    // echo ($graphs_database) ;
+  ?>
+
+ <?php
+    echo ($graphs_step3_database) ;
   ?>
