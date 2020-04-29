@@ -128,38 +128,10 @@ $(document).ready(function (){
         success:function(data){
             var vendite = datiVendite(data);
             graficoLineStep3(vendite.tipo, vendite.dati);
-            var fatturatoAgente = datifatturatoAgenti(data);
+            var fatturatoAgente = datiFatturatoAgenti(data);
             graficoPieStep3(fatturatoAgente.tipo, fatturatoAgente.vendita, fatturatoAgente.venditori);
-            var ctx = $('#myChart-six');
-            var chart = new Chart(ctx, {
-
-                type: 'line',
-
-                data: {
-                    labels: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
-                    datasets: [
-                        {
-                            label: 'Vendite',
-                            backgroundColor: 'rgb(255, 99, 132)',
-                            borderColor: 'rgb(255, 99, 132)',
-                            data: [1000,1322,1123,2301,3288,988,502,2300,5332,2300,1233,2322]
-                        },
-                        {
-                            label: 'Vendite2',
-                            backgroundColor: 'rgb(255, 99, 132)',
-                            borderColor: 'rgb(255, 99, 132)',
-                            data: [2000,3322,1123,1301,3288,988,502,5300,2332,2300,4233,2322]
-                        },
-                        {
-                            label: 'Vendite3',
-                            backgroundColor: 'rgb(255, 20, 132, 0.5)',
-                            borderColor: 'rgb(255, 99, 132)',
-                            data: [1000,1322,5123,2301,3288,1988,502,300,5332,2300,233,2322]
-                        }
-                    ],
-                },
-            });
-
+            var team = datiTeam(data);
+            graficoLine3team(team.tipo, team.team1, team.team2, team.team3);
         },
         error:function(){
             alert('error');
@@ -208,7 +180,7 @@ $(document).ready(function (){
             }
         });
     };
-    function datifatturatoAgenti(data){
+    function datiFatturatoAgenti(data){
         var fatturatoAgenti = data.fatturato_by_agent;
         var tipo = fatturatoAgenti.type;
         var dati = fatturatoAgenti.data;
@@ -224,6 +196,52 @@ $(document).ready(function (){
             venditori:venditori,
             vendita:vendita
         }
+    };
+    function graficoLine3team(tipo, team1, team2, team3){
+        var ctx = $('#myChart-six');
+        var chart = new Chart(ctx, {
+
+            type: tipo,
+
+            data: {
+                labels: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
+                datasets: [
+                    {
+                        label: 'Team 1',
+                        backgroundColor: 'rgb(165, 165, 165, 0.3)',
+                        borderColor: 'rgb(63, 81, 181)',
+                        data: team1
+                    },
+                    {
+                        label: 'Team 2',
+                        backgroundColor: 'rgb(165, 165, 165, 0.3)',
+                        borderColor: 'rgb(76, 175, 80)',
+                        data: team2
+                    },
+                    {
+                        label: 'Team 3',
+                        backgroundColor: 'rgb(165, 165, 165, 0.3)',
+                        borderColor: 'rgb(255,193, 7)',
+                        data: team3
+                    }
+                ],
+            },
+        });
+    };
+    function datiTeam(data){
+        var efficienzaTeam = data.team_efficiency;
+        var tipo = efficienzaTeam.type;
+        var dati = efficienzaTeam.data;
+        var team1 = dati.Team1;
+        var team2 = dati.Team2;
+        var team3 = dati.Team3;
+        return{
+            tipo: tipo,
+            team1: team1,
+            team2: team2,
+            team3: team3
+        }
+
     };
 
 });

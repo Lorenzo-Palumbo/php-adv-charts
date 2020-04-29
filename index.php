@@ -46,6 +46,7 @@
         <div class="container-three">
             <canvas id="myChart-three"></canvas>
         </div>
+        
         <!-- Step 3 -->
         <div class="container-four">
             <canvas id="myChart-four"></canvas>
